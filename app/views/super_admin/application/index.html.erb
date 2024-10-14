@@ -52,6 +52,17 @@ It renders the `_table` partial to display details about the resources.
   </div>
 </header>
 
+<!-- <section>
+
+    <h2>Informações do Usuário Atual</h2>
+    <ul>
+    <% current_user.attributes.each do |key, value| %>
+        <li><strong><%= key %>:</strong> <%= value %></li>
+    <% end %>
+    </ul>
+
+</section> -->
+
 <section class="main-content__body main-content__body--flush">
   <%= render(
     "collection",

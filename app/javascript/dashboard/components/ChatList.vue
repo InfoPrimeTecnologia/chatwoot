@@ -287,7 +287,7 @@ export default {
       ).map(({ key, count: countKey }) => ({
         key,
         name: this.$t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
-        count: this.hideAllChatsForAgents && this.currentRole !== 'administrator' ? 0 : this.conversationStats[countKey] || 0,
+        count: this.hideAllChatsForAgents ? 0 : this.conversationStats[countKey] || 0,
       }));
     },
     showAssigneeInConversationCard() {
@@ -385,7 +385,7 @@ export default {
     },
     conversationList() {
       let conversationList = [];
-      if (this.hideAllChatsForAgents && this.currentRole !== 'administrator') {
+      if (this.hideAllChatsForAgents) {
         !this.chatListLoading;
         return [];
       }

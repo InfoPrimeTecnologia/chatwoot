@@ -5,8 +5,15 @@ class SuperAdmin::AccountUsersController < SuperAdmin::ApplicationController
   def create
     resource = resource_class.new(resource_params)
     authorize_resource(resource)
-
-    notice =  resource.save ? translate_with_resource('create.success') : resource.errors.full_messages.first
+  
+    if resource.save
+      # Teste para garantir que o current_user está disponível
+      puts "Current user: #{current_user.inspect}"
+      notice = translate_with_resource('create.success')
+    else
+      notice = resource.errors.full_messages.first
+    end
+  
     redirect_back(fallback_location: [namespace, resource.account], notice: notice)
   end
 
@@ -17,6 +24,10 @@ class SuperAdmin::AccountUsersController < SuperAdmin::ApplicationController
       flash[:error] = requested_resource.errors.full_messages.join('<br/>')
     end
     redirect_back(fallback_location: [namespace, requested_resource.account])
+  end
+
+  def current_user
+    super
   end
 
   # Override this method to specify custom lookup behavior.

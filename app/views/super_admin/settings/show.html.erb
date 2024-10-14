@@ -24,20 +24,21 @@
 
   <div class="bg-white py-2 px-3">
     <div class="mb-4">
-      <div class="flex items-center gap-2">
+      <!-- <div class="flex items-center gap-2">
         <h2 class="h-5 leading-5 text-slate-900 font-medium">Current plan</h2>
         <a href="<%= refresh_super_admin_settings_url %>" class="inline-flex gap-1 text-xs font-medium items-center text-woot-500 hover:text-woot-700">
           <svg width="16" height="16"><use xlink:href="#icon-refresh-line" /></svg>
           <span>Refresh</span>
         </a>
-      </div>
-      <p class="text-slate-600 mt-1"><%= SuperAdmin::FeaturesHelper.plan_details.html_safe %></p>
+      </div> -->
+      <!-- <p class="text-slate-600 mt-1"><%= SuperAdmin::FeaturesHelper.plan_details.html_safe %></p> -->
       <div class="flex items-center mt-6">
         <h4 class="text-sm font-medium leading-5 h-5 text-slate-900 mr-4">Installation Identifier</h4>
         <span class="text-sm leading-5 h-5 text-slate-600"><%= ChatwootHub.installation_identifier %></span>
       </div>
     </div>
-    <div class="flex p-4 border border-solid border-slate-100 rounded-lg mt-8 items-start md:items-center shadow-sm flex-col md:flex-row">
+
+    <!-- <div class="flex p-4 border border-solid border-slate-100 rounded-lg mt-8 items-start md:items-center shadow-sm flex-col md:flex-row">
       <div class="flex flex-col flex-grow gap-1">
         <h2 class="h-5 leading-5 text-slate-900 text-sm font-medium">Current plan</h2>
         <p class="text-slate-600 m-0 text-sm"><%= SuperAdmin::FeaturesHelper.plan_details.html_safe %></p>
@@ -48,18 +49,18 @@
           <span class="px-1">Manage</span>
         </button>
       </a>
-    </div>
+    </div> -->
 
-    <% if ChatwootHub.pricing_plan != 'community' &&  User.count > ChatwootHub.pricing_plan_quantity %>
+    <!-- <% if ChatwootHub.pricing_plan != 'community' &&  User.count > ChatwootHub.pricing_plan_quantity %>
     <div role="alert">
       <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
         <p>You have <%= User.count %> agents. Please add more licenses to add more users.</p>
       </div>
     </div>
-    <% end %>
+    <% end %> -->
 
 
-    <div class="flex p-4 border border-solid border-slate-100 rounded-lg mt-4 items-start md:items-center shadow-sm flex-col md:flex-row">
+    <!-- <div class="flex p-4 border border-solid border-slate-100 rounded-lg mt-4 items-start md:items-center shadow-sm flex-col md:flex-row">
       <div class="flex flex-col flex-grow gap-1">
         <h2 class="h-5 leading-5 text-slate-900 text-sm font-medium">Need help?</h2>
         <p class="text-slate-600 m-0 text-sm">Do you face any issues? We are here to help.</p>
@@ -76,7 +77,8 @@
           <span class="px-1">Chat Support</span>
         </button>
       <% end %>
-    </div>
+    </div> -->
+
     <div class="mt-10 py-4">
       <h3 class="h-5 leading-5 text-slate-900 font-medium text-base">Features</h3>
     </div>
