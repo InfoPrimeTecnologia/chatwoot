@@ -68,7 +68,7 @@ module Enterprise::Concerns::Article
     headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{ENV.fetch('OPENAI_API_KEY', nil)}" }
     body = { model: 'gpt-4o', messages: messages, response_format: { type: 'json_object' } }.to_json
     Rails.logger.info "Requesting Chat GPT with body: #{body}"
-    response = HTTParty.post('https://api.openai.com/v1/chat/completions', headers: headers, body: body)
+    response = HTTParty.post("#{provider_url}/v1/chat/completions", headers: headers, body: body)
     Rails.logger.info "Chat GPT response: #{response.body}"
     JSON.parse(response.parsed_response['choices'][0]['message']['content'])['search_terms']
   end

@@ -4,13 +4,18 @@ class Integrations::OpenaiBaseService
   # sticking with 120000 to be safe
   # 120000 * 4 = 480,000 characters (rounding off downwards to 400,000 to be safe)
   TOKEN_LIMIT = 400_000
-  API_URL = 'https://api.openai.com/v1/chat/completions'.freeze
-  GPT_MODEL = ENV.fetch('OPENAI_GPT_MODEL', 'gpt-4o-mini').freeze
-
   ALLOWED_EVENT_NAMES = %w[rephrase summarize reply_suggestion fix_spelling_grammar shorten expand make_friendly make_formal simplify].freeze
   CACHEABLE_EVENTS = %w[].freeze
 
   pattr_initialize [:hook!, :event!]
+
+  def provider_url
+    hook.settings['url_provider']
+  end
+
+  def model_llm
+    hook.settings['model']
+  end
 
   def perform
     return nil unless valid_event_name?
@@ -88,7 +93,7 @@ class Integrations::OpenaiBaseService
     }
 
     Rails.logger.info("OpenAI API request: #{body}")
-    response = HTTParty.post(API_URL, headers: headers, body: body)
+    response = HTTParty.post("#{provider_url}/chat/completions", headers: headers, body: body)
     Rails.logger.info("OpenAI API response: #{response.body}")
 
     return { error: response.parsed_response, error_code: response.code } unless response.success?

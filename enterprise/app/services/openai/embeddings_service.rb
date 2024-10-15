@@ -6,7 +6,7 @@ class Openai::EmbeddingsService
   private
 
   def fetch_embeddings(input, model)
-    url = 'https://api.openai.com/v1/embeddings'
+    url = "#{provider_url}/embeddings"
     headers = {
       'Authorization' => "Bearer #{ENV.fetch('OPENAI_API_KEY', '')}",
       'Content-Type' => 'application/json'

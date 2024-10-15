@@ -18,6 +18,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  logo: {
+    type: String,
+    default: '',
+  },
   enabled: {
     type: Boolean,
     default: false,
@@ -52,11 +56,11 @@ const actionURL = computed(() =>
     <div class="flex items-start justify-between">
       <div class="flex h-12 w-12 mb-4">
         <img
-          :src="`/dashboard/images/integrations/${id}.png`"
+          :src="`/dashboard/images/integrations/${logo}`"
           class="max-w-full rounded-md border border-slate-50 dark:border-slate-700/50 shadow-sm block dark:hidden bg-white dark:bg-slate-900"
         />
         <img
-          :src="`/dashboard/images/integrations/${id}-dark.png`"
+          :src="`/dashboard/images/integrations/${logo.replace('.png', '-dark.png')}`"
           class="max-w-full rounded-md border border-slate-50 dark:border-slate-700/50 shadow-sm hidden dark:block bg-white dark:bg-slate-900"
         />
       </div>

@@ -62,7 +62,7 @@ captain:
   visible_properties: []
 webhooks:
   id: webhook
-  logo: webhooks.png
+  logo: webhook.png
   i18n_key: webhooks
   action: /webhook
   hook_type: account
@@ -75,7 +75,7 @@ dashboard_apps:
   allow_multiple_hooks: true
 openai:
   id: openai
-  logo: openai.png
+  logo: ai.png
   i18n_key: openai
   action: /openai
   hook_type: account
@@ -85,11 +85,20 @@ openai:
     "properties": {
         "api_key": { "type": "string" },
         "label_suggestion": { "type": "boolean" },
+        "url_provider": { "type": "string" },
+        "model": { "type": "string" }
       },
     "required": ["api_key"],
     "additionalProperties": false,
   }
   settings_form_schema: [
+    {
+      "label": "URL Provider",
+      "type": "text",
+      "name": "url_provider",
+      "validation": "required",
+      "value": "https://api.openai.com/v1"
+    },
     {
       "label": "API Key",
       "type": "text",
@@ -97,11 +106,19 @@ openai:
       "validation": "required",
     },
     {
+      "label": "Modelo",
+      "type": "text",
+      "name": "model",
+      "validation": "required",
+      "value": "gpt-4o-mini"
+    },
+    {
       "label": "Show label suggestions",
       "type": "checkbox",
       "name": "label_suggestion",
       "validation": "",
-    },
+      "value": "checked"
+    }
   ]
   visible_properties: ['api_key', 'label_suggestion']
 linear:
@@ -174,7 +191,7 @@ dialogflow:
   visible_properties: ['project_id']
 google_translate:
   id: google_translate
-  logo: google-translate.png
+  logo: google_translate.png
   i18n_key: google_translate
   action: /google_translate
   hook_type: account

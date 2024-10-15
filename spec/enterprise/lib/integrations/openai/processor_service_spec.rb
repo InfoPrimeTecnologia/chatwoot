@@ -49,7 +49,7 @@ RSpec.describe Integrations::Openai::ProcessorService do
       end
 
       it 'returns the label suggestions' do
-        stub_request(:post, 'https://api.openai.com/v1/chat/completions')
+        stub_request(:post, "#{provider_url}/chat/completions")
           .with(body: anything, headers: expected_headers)
           .to_return(status: 200, body: openai_response, headers: {})
 
@@ -58,7 +58,7 @@ RSpec.describe Integrations::Openai::ProcessorService do
       end
 
       it 'returns empty string if openai response is blank' do
-        stub_request(:post, 'https://api.openai.com/v1/chat/completions')
+        stub_request(:post, "#{provider_url}/chat/completions")
           .with(body: anything, headers: expected_headers)
           .to_return(status: 200, body: '{}', headers: {})
 

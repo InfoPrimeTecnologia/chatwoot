@@ -202,14 +202,14 @@ pt_BR:
       name: "Webhooks"
       description: "Eventos webhook fornecem atualizações sobre atividades em tempo real na sua conta Chatwoot. Você pode se inscrever em seus eventos preferidos, e o Chatwoot enviará as chamadas HTTP com as atualizações."
     dialogflow:
-      name: "Fluxo de diálogo"
+      name: "Dialogflow"
       description: "Construa chatbots com o Dialogflow e integre-os facilmente na sua caixa de entrada. Esses bots podem lidar com as consultas iniciais antes de transferi-las para um agente de atendimento ao cliente."
     google_translate:
       name: "Tradutor do Google"
       description: "Integre o Google Tradutor para ajudar os agentes a traduzir facilmente as mensagens dos clientes. Esta integração detecta automaticamente o idioma e o converte para o idioma preferido do agente ou do administrador."
     openai:
-      name: "OpenAI"
-      description: "Aproveite o poder dos grandes modelos de linguagem do OpenAI com recursos como sugestões de resposta, resumo, reformulação de mensagens, verificação ortográfica e classificação de rótulos."
+      name: "IA Generativa"
+      description: "Aproveite o poder dos grandes modelos de IA Generativa como OpenAI, Groq, LocalAI  outros, com recursos como sugestões de resposta, resumo, reformulação de mensagens, verificação ortográfica e classificação de rótulos."
     linear:
       name: "Linear"
       description: "Crie issues em Linear diretamente da sua janela de conversa. Alternativamente, vincule as issues lineares existentes para um processo de rastreamento de problemas mais simples e eficiente."

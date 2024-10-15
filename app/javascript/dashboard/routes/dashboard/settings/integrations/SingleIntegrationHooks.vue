@@ -25,11 +25,11 @@ export default {
         <div class="flex">
           <div class="flex h-[6.25rem] w-[6.25rem]">
             <img
-              :src="`/dashboard/images/integrations/${integration.id}.png`"
+              :src="`/dashboard/images/integrations/${integration.logo}`"
               class="max-w-full rounded-md border border-slate-50 dark:border-slate-700/50 shadow-sm block dark:hidden bg-white dark:bg-slate-900"
             />
             <img
-              :src="`/dashboard/images/integrations/${integration.id}-dark.png`"
+              :src="`/dashboard/images/integrations/${integration.logo.replace('.png', '-dark.png')}`"
               class="max-w-full rounded-md border border-slate-50 dark:border-slate-700/50 shadow-sm hidden dark:block bg-white dark:bg-slate-900"
             />
           </div>

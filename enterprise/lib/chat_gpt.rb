@@ -1,4 +1,5 @@
 class ChatGpt
+
   def self.base_uri
     'https://api.openai.com'
   end
