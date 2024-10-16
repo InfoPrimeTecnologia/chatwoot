@@ -26,20 +26,60 @@ class SearchService
 
   def filter_conversations
     @conversations = current_account.conversations.where(inbox_id: accessable_inbox_ids)
-                                    .joins('INNER JOIN contacts ON conversations.contact_id = contacts.id')
-                                    .where("cast(conversations.display_id as text) ILIKE :search OR contacts.name ILIKE :search OR contacts.email
-                            ILIKE :search OR contacts.phone_number ILIKE :search OR contacts.identifier ILIKE :search", search: "%#{search_query}%")
-                                    .order('conversations.created_at DESC')
-                                    .limit(10)
+  
+    unless Current.account_user.administrator?
+      participant_conversation_ids = ConversationParticipant.where(user_id: current_user.id).select(:conversation_id)
+      @conversations = @conversations.where(
+        'conversations.assignee_id = :user_id OR conversations.id IN (:conversation_ids)',
+        user_id: current_user.id,
+        conversation_ids: participant_conversation_ids
+      )
+    end
+  
+    @conversations = @conversations
+                     .joins('INNER JOIN contacts ON conversations.contact_id = contacts.id')
+                     .where(
+                       "CAST(conversations.display_id AS TEXT) ILIKE :search OR contacts.name ILIKE :search OR contacts.email ILIKE :search OR contacts.phone_number ILIKE :search OR contacts.identifier ILIKE :search",
+                       search: "%#{search_query}%"
+                     )
+                     .order('conversations.created_at DESC')
+                     .limit(10)
   end
+  
 
   def filter_messages
     @messages = current_account.messages.where(inbox_id: accessable_inbox_ids)
-                               .where('messages.content ILIKE :search', search: "%#{search_query}%")
-                               .where('created_at >= ?', 3.months.ago)
-                               .reorder('created_at DESC')
-                               .limit(10)
+  
+    unless Current.account_user.administrator?
+      participant_conversation_ids = ConversationParticipant.where(user_id: current_user.id).pluck(:conversation_id)
+  
+      participant_assigned_conversation_ids = Conversation.where(
+        assignee_id: current_user.id,
+        id: participant_conversation_ids
+      ).pluck(:id)
+  
+      agent_messages = @messages.where(sender_id: current_user.id, sender_type: 'User')
+  
+      participant_assigned_messages = @messages.where(conversation_id: participant_assigned_conversation_ids)
+  
+      contact_messages_in_participant_conversations = @messages.where(
+        conversation_id: participant_conversation_ids,
+        sender_type: 'Contact'
+      )
+  
+      # Combinar todas as mensagens
+      @messages = agent_messages
+                    .or(participant_assigned_messages)
+                    .or(contact_messages_in_participant_conversations)
+    end
+  
+    @messages = @messages
+                  .where('messages.content ILIKE :search', search: "%#{search_query}%")
+                  .where('messages.created_at >= ?', 3.months.ago)
+                  .reorder('messages.created_at DESC')
+                  .limit(10)
   end
+  
 
   def filter_contacts
     @contacts = current_account.contacts.where(

@@ -70,7 +70,15 @@ class Conversation < ApplicationRecord
 
   enum status: { open: 0, resolved: 1, pending: 2, snoozed: 3 }
   enum priority: { low: 0, medium: 1, high: 2, urgent: 3 }
-
+  
+  scope :accessible_by_user, ->(user) {
+    left_outer_joins(:conversation_participants)
+      .where(
+        'conversations.assignee_id = :user_id OR conversation_participants.user_id = :user_id',
+        user_id: user.id
+      ).distinct
+  }
+  
   scope :unassigned, -> { where(assignee_id: nil) }
   scope :assigned, -> { where.not(assignee_id: nil) }
   scope :assigned_to, ->(agent) { where(assignee_id: agent.id) }

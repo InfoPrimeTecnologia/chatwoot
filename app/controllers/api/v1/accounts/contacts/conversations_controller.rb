@@ -1,8 +1,11 @@
 class Api::V1::Accounts::Contacts::ConversationsController < Api::V1::Accounts::Contacts::BaseController
   def index
-    @conversations = Current.account.conversations.includes(
-      :assignee, :contact, :inbox, :taggings
-    ).where(inbox_id: inbox_ids, contact_id: @contact.id).order(id: :desc).limit(20)
+    @conversations = @contact.conversations.where(account_id: current_account.id)
+
+    unless Current.user.administrator?
+      @conversations = @conversations.accessible_by_user(Current.user)
+    end
+
   end
 
   private
