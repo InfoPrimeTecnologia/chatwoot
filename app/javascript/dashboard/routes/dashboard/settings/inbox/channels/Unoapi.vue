@@ -123,11 +123,11 @@
         :button-text="$t('INBOX_MGMT.ADD.WHATSAPP.SUBMIT_BUTTON')"
       />
       <woot-submit-button
-        :loading="uiFlags.isUpdating"
+        :loading="uiFlags.isUpdating"          
         :button-text="$t('INBOX_MGMT.ADD.WHATSAPP.GENERATE_API_KEY.LABEL')"
         @click="generateToken"
-      />
-    </div>
+      /> 
+    </div>    
   </form>
 </template>
 

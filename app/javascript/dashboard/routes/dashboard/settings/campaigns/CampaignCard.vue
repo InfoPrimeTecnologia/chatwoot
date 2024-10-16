@@ -45,6 +45,35 @@ export default {
         ? 'secondary'
         : 'success';
     },
+    campaignReport() {
+      const audience = this.campaign.audience;
+      const reports = {
+        total: 0,
+      };
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < audience.length; i++) {
+        const a = audience[i];
+        if (!reports[a.status]) {
+          reports[a.status] = 0;
+        }
+        reports.total += 1;
+        reports[a.status] += 1;
+      }
+      return reports;
+    },
+    campaignListError() {
+      const audience = this.campaign.audience || [];
+      return audience
+        .filter(a => a.status === 'error')
+        .map(
+          a =>
+            `${this.$t('CONTACT_FORM.FORM.NAME.LABEL')}: ${a.name},
+             ${this.$t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL')}: ${
+               a.phone_number
+             }`
+        )
+        .join('<br/>');
+    },
   },
   methods: {
     messageStamp,
@@ -115,6 +144,32 @@ export default {
         class="mb-1 text-xs text-slate-700 dark:text-slate-500"
       >
         {{ messageStamp(new Date(campaign.scheduled_at), 'LLL d, h:mm a') }}
+      </div>
+    </div>
+
+    <div
+      v-if="campaign.inbox.channel_type == 'Channel::Whatsapp'"
+      class="flex flex-row items-center mt-5 space-x-3"
+    >
+      <div class="mb-1 text-xs text-slate-700 dark:text-slate-500">
+        {{ $t('CAMPAIGN.AUDIENCE.REPORT') }}:
+      </div>
+      <div class="mb-1 text-xs text-slate-700 dark:text-slate-500">
+        {{ campaignReport }}
+      </div>
+    </div>
+
+    <div
+      v-if="
+        campaign.inbox.channel_type == 'Channel::Whatsapp' && campaignListError
+      "
+      class="flex flex-row items-center mt-5 space-x-3"
+    >
+      <div class="mb-1 text-xs text-slate-700 dark:text-slate-500">
+        {{ $t('CAMPAIGN.AUDIENCE.ERROR') }}:
+      </div>
+      <div class="mb-1 text-xs text-slate-700 dark:text-slate-500">
+        {{ campaignListError }}
       </div>
     </div>
   </div>

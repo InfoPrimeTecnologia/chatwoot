@@ -124,3 +124,5 @@
   enabled: true
 - name: wavoip
   enabled: false
+- name: channel_notifica_me
+  enabled: false

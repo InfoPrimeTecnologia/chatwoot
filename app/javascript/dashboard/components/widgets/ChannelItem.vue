@@ -30,6 +30,9 @@ export default {
       if (key === 'email') {
         return this.enabledFeatures.channel_email;
       }
+      if (key === 'notifica_me') {
+        return this.enabledFeatures.channel_notifica_me;
+      }
       if (key === 'sms') {
         return this.enabledFeatures.channel_sms;
       }
@@ -54,6 +57,7 @@ export default {
         'sms',
         'telegram',
         'line',
+        'notifica_me',
       ].includes(key);
     },
   },

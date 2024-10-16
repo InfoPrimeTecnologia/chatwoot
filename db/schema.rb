@@ -121,8 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_23_215335) do
     t.bigint "account_id", null: false
     t.bigint "sla_policy_id", null: false
     t.bigint "conversation_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "sla_status", default: 0
     t.index ["account_id", "sla_policy_id", "conversation_id"], name: "index_applied_slas_on_account_sla_policy_conversation", unique: true
     t.index ["account_id"], name: "index_applied_slas_on_account_id"
@@ -316,6 +316,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_23_215335) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["line_channel_id"], name: "index_channel_line_on_line_channel_id", unique: true
+  end
+
+  create_table "channel_notifica_me", force: :cascade do |t|
+    t.string "notifica_me_id", null: false
+    t.string "notifica_me_type", null: false
+    t.string "notifica_me_token", null: false
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "message_templates", default: "{}", null: false
+    t.datetime "message_templates_last_updated"
+    t.index ["notifica_me_id", "account_id"], name: "index_channel_notifica_me", unique: true
   end
 
   create_table "channel_sms", force: :cascade do |t|
